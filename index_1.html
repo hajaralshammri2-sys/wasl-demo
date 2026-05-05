@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>وصل | Wasl — عيونك الذكية بكل مكان</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Tahoma,sans-serif}
+body{background:linear-gradient(135deg,#1a2a20 0%,#0d1a12 100%);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}
+.page-title{color:#C2DCD3;font-size:13px;margin-bottom:16px;opacity:0.7;letter-spacing:1px;text-align:center}
+.nav-btns{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:14px}
+.nav-btn{font-size:11px;padding:6px 14px;border-radius:20px;border:1px solid #6F8F8866;background:#364842AA;cursor:pointer;color:#C2DCD3;transition:all 0.2s;font-family:inherit}
+.nav-btn:hover{background:#6F8F88;color:white}
+.phone{width:280px;height:560px;background:#1a1a2e;border-radius:38px;border:7px solid #2a2a3e;overflow:hidden;position:relative;box-shadow:0 30px 80px rgba(0,0,0,0.6)}
+.screen{width:100%;height:100%;position:relative;overflow:hidden}
+.page{position:absolute;top:0;left:0;width:100%;height:100%;transition:all 0.35s cubic-bezier(.4,0,.2,1);transform:translateX(110%);opacity:0;pointer-events:none}
+.page.active{transform:translateX(0);opacity:1;pointer-events:all}
+.splash-bg{background:linear-gradient(160deg,#C2DCD3,#a8cfc4);height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;cursor:pointer}
+.eye-circle{width:90px;height:90px;background:#364842;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.splash-title{font-size:42px;font-weight:700;color:#364842}
+.splash-sub{font-size:10px;color:#6F8F88;letter-spacing:2px}
+.splash-dots{display:flex;gap:7px;margin-top:4px}
+.sdot{width:8px;height:8px;border-radius:50%;background:#6F8F8888}
+.sdot.on{background:#364842}
+.splash-hint{font-size:9px;color:#6F8F88;margin-top:20px;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:0.4}50%{opacity:1}}
+.home-bg{background:#C2DCD3;height:100%;display:flex;flex-direction:column}
+.home-header{padding:18px 16px 10px;display:flex;align-items:center;gap:10px}
+.h-logo{width:36px;height:36px;background:#364842;border-radius:10px;display:flex;align-items:center;justify-content:center}
+.h-title{font-size:18px;font-weight:700;color:#364842}
+.h-sub{font-size:9px;color:#6F8F88;margin-top:1px}
+.hint-card{margin:4px 14px;background:#EAF4F1;border-radius:12px;padding:9px 12px;border:1px solid #B0CBBF;font-size:9px;color:#6F8F88;display:flex;align-items:center;gap:8px}
+.mbtn{margin:7px 14px;border-radius:16px;padding:15px;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;border:none;width:calc(100% - 28px);transition:transform 0.15s;font-family:inherit}
+.mbtn:active{transform:scale(0.96)}
+.mbtn.primary{background:#364842}
+.mbtn.secondary{background:#6F8F88}
+.mbtn.tertiary{background:#DCE7E3}
+.mbtn-icon{font-size:18px}
+.mbtn-label{font-size:13px;font-weight:600}
+.home-footer{text-align:center;font-size:8px;color:#6F8F88AA;padding:10px;margin-top:auto}
+.cam-bg{background:#0a0a0a;height:100%;display:flex;flex-direction:column}
+.cam-top{padding:10px 12px;display:flex;align-items:center;gap:8px;background:rgba(0,0,0,0.75)}
+.icon-btn{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;color:white;font-size:14px;transition:transform 0.15s;font-family:inherit;background:#36484299}
+.icon-btn:active{transform:scale(0.88)}
+.cam-mid{display:flex;align-items:center;flex:1;gap:6px}
+.status-dot{width:8px;height:8px;border-radius:50%;background:#6FA67A}
+.status-dot.pulse{animation:glow 1.5s infinite}
+@keyframes glow{0%,100%{opacity:1}50%{opacity:0.4}}
+.status-lbl{font-size:10px;color:white;font-weight:500}
+.dbar-row{display:flex;gap:3px;margin-right:auto}
+.dbar{height:5px;border-radius:3px}
+.cam-view{flex:1;position:relative;overflow:hidden;background:linear-gradient(180deg,#1a3a2a,#2a4a3a,#1a2a1a)}
+.scene-obj{position:absolute;font-size:52px;animation:sway 3s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:translateX(0)}50%{transform:translateX(10px)}}
+.det-box{position:absolute;border:2px solid #E0B15C;border-radius:4px;animation:detpulse 2s infinite}
+@keyframes detpulse{0%,100%{opacity:1}50%{opacity:0.6}}
+.scan-line{position:absolute;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,#6FA67A88,transparent);animation:scanning 2.5s linear infinite}
+@keyframes scanning{0%{top:15%}100%{top:85%}}
+.corner{position:absolute;width:16px;height:16px;border-color:#6FA67A;border-style:solid;opacity:0.7}
+.corner.tl{top:8px;left:8px;border-width:2px 0 0 2px}
+.corner.tr{top:8px;right:8px;border-width:2px 2px 0 0}
+.corner.bl{bottom:8px;left:8px;border-width:0 0 2px 2px}
+.corner.br{bottom:8px;right:8px;border-width:0 2px 2px 0}
+.result-panel{margin:8px 10px;background:rgba(234,244,241,0.96);border-radius:16px;padding:10px 12px;border:2px solid #E0B15C;transition:border-color 0.4s}
+.rp-row{display:flex;align-items:center;gap:6px;margin-bottom:7px;direction:rtl}
+.rp-dot{width:10px;height:10px;border-radius:50%;transition:all 0.4s}
+.rp-level{font-size:10px;font-weight:700;transition:color 0.4s}
+.rp-tag{border-radius:5px;padding:2px 7px;font-size:8px;font-weight:700;margin-right:auto;transition:all 0.4s}
+.rp-msg{font-size:9px;color:#364842;line-height:1.7;direction:rtl;text-align:right}
+.cam-actions{padding:8px 14px 10px;background:rgba(0,0,0,0.75);display:flex;justify-content:space-around}
+.act-btn{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;border:none;background:transparent;font-family:inherit}
+.act-circle{width:46px;height:46px;border-radius:50%;border:1.5px solid;display:flex;align-items:center;justify-content:center;font-size:18px;transition:transform 0.15s}
+.act-circle:active{transform:scale(0.88)}
+.act-circle.stop{border-color:#C96B6B;background:#C96B6B22}
+.act-circle.replay{border-color:#6F8F88;background:#6F8F8822}
+.act-circle.hear{border-color:#E0B15C;background:#E0B15C22}
+.act-lbl{font-size:7px;color:rgba(255,255,255,0.6)}
+.info-bg{background:#EAF4F1;height:100%;display:flex;flex-direction:column}
+.info-head{background:#C2DCD3;padding:12px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #B0CBBF}
+.info-title{font-size:13px;font-weight:600;color:#364842;flex:1;text-align:right}
+.info-content{flex:1;padding:14px;overflow:hidden}
+.info-card{background:white;border-radius:16px;padding:16px;font-size:9.5px;color:#364842;line-height:2.1;direction:rtl;text-align:right;border:0.5px solid #B0CBBF}
+.info-section{font-weight:700;font-size:10px;color:#364842;margin-top:10px;margin-bottom:2px;border-right:3px solid #6F8F88;padding-right:6px}
+</style>
+</head>
+<body>
+<div class="page-title">وصل — نموذج تفاعلي تجريبي</div>
+<div class="phone">
+  <div class="screen">
+    <div class="page active" id="p-splash" onclick="goTo('p-home')">
+      <div class="splash-bg">
+        <div class="eye-circle">
+          <svg width="50" height="50" viewBox="0 0 44 44" fill="none">
+            <ellipse cx="22" cy="22" rx="18" ry="11" stroke="#C2DCD3" stroke-width="2.5"/>
+            <circle cx="22" cy="22" r="6" fill="#C2DCD3"/>
+            <circle cx="24" cy="20" r="2" fill="#364842"/>
+          </svg>
+        </div>
+        <div class="splash-title">وصل</div>
+        <div class="splash-sub">عيونك الذكية بكل مكان</div>
+        <div class="splash-dots">
+          <div class="sdot on"></div><div class="sdot"></div><div class="sdot"></div>
+        </div>
+        <div class="splash-hint">اضغط للمتابعة ←</div>
+      </div>
+    </div>
+    <div class="page" id="p-home">
+      <div class="home-bg">
+        <div class="home-header">
+          <div class="h-logo">
+            <svg width="20" height="20" viewBox="0 0 44 44" fill="none">
+              <ellipse cx="22" cy="22" rx="18" ry="11" stroke="#C2DCD3" stroke-width="2.5"/>
+              <circle cx="22" cy="22" r="5" fill="#C2DCD3"/>
+            </svg>
+          </div>
+          <div><div class="h-title">وصل</div><div class="h-sub">عيونك الذكية بكل مكان</div></div>
+        </div>
+        <div class="hint-card"><span>👆</span><span>اضغط مرة لسماع وصف الزر · مرتين للتنفيذ</span></div>
+        <button class="mbtn primary" onclick="startCam()">
+          <span class="mbtn-icon">📷</span><span class="mbtn-label" style="color:white">فتح الكاميرا</span>
+        </button>
+        <button class="mbtn secondary" onclick="goTo('p-info')">
+          <span class="mbtn-icon">❓</span><span class="mbtn-label" style="color:white">التعليمات</span>
+        </button>
+        <button class="mbtn tertiary" onclick="goTo('p-about')">
+          <span class="mbtn-icon">ℹ️</span><span class="mbtn-label" style="color:#364842">حول التطبيق</span>
+        </button>
+        <div class="home-footer">وصل — مصنوع لذوي الإعاقة البصرية</div>
+      </div>
+    </div>
+    <div class="page" id="p-cam">
+      <div class="cam-bg">
+        <div class="cam-top">
+          <button class="icon-btn" onclick="goTo('p-home')" style="font-size:18px">‹</button>
+          <div class="cam-mid">
+            <div class="status-dot pulse" id="sdot"></div>
+            <span class="status-lbl" id="stxt">التحليل يعمل</span>
+            <div class="dbar-row">
+              <div class="dbar" style="width:22px;background:#6FA67A55"></div>
+              <div class="dbar" style="width:22px;background:#8FA65055"></div>
+              <div class="dbar" style="width:30px;background:#E0B15C"></div>
+              <div class="dbar" style="width:14px;background:#C96B6B33"></div>
+              <div class="dbar" style="width:10px;background:#8B000033"></div>
+            </div>
+          </div>
+          <button class="icon-btn" onclick="toggleFlash(this)">⚡</button>
+        </div>
+        <div class="cam-view">
+          <div class="scene-obj" id="scene-obj" style="top:30%;left:38%">🚶</div>
+          <div class="det-box" id="det-box" style="top:22%;left:30%;width:70px;height:120px"></div>
+          <div class="scan-line"></div>
+          <div class="corner tl"></div><div class="corner tr"></div>
+          <div class="corner bl"></div><div class="corner br"></div>
+        </div>
+        <div class="result-panel" id="result-panel">
+          <div class="rp-row">
+            <div class="rp-dot" id="rp-dot" style="background:#E0B15C;box-shadow:0 0 6px #E0B15C"></div>
+            <span class="rp-level" id="rp-level" style="color:#E0B15C">خطر متوسط</span>
+            <span class="rp-tag" id="rp-tag" style="background:#E0B15C22;color:#E0B15C">شخص 🟡</span>
+          </div>
+          <div class="rp-msg" id="rp-msg">خطر متوسط. يوجد شخص أمامك مباشرة. امشِ بحذر.</div>
+        </div>
+        <div class="cam-actions">
+          <button class="act-btn" onclick="toggleAnalysis()">
+            <div class="act-circle stop" id="toggle-circle">⏹</div>
+            <span class="act-lbl" id="toggle-lbl">إيقاف</span>
+          </button>
+          <button class="act-btn" onclick="replayMsg()">
+            <div class="act-circle replay">↩</div>
+            <span class="act-lbl">إعادة</span>
+          </button>
+          <button class="act-btn" onclick="askNow()">
+            <div class="act-circle hear">👂</div>
+            <span class="act-lbl">ما أمامي؟</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="page" id="p-info">
+      <div class="info-bg">
+        <div class="info-head">
+          <button class="icon-btn" onclick="goTo('p-home')" style="font-size:18px;background:#364842">‹</button>
+          <div class="info-title">كيفية استخدام وصل</div>
+          <div style="width:38px"></div>
+        </div>
+        <div class="info-content">
+          <div class="info-card">
+            <div class="info-section">طريقة الأزرار</div>
+            اضغط مرة لسماع وصف الزر.<br>انتظر كلمة "جاهز".<br>اضغط مرة ثانية للتنفيذ.
+            <div class="info-section">في صفحة الكاميرا</div>
+            يكشف الأشياء تلقائياً كل ثوانٍ.<br>يذكر الاسم والموقع ومستوى الخطر.<br>زر "ما أمامي؟" يصف المشهد فوراً.
+            <div class="info-section">نظام الاهتزاز</div>
+            اهتزاز مرة = خطر متوسط.<br>اهتزازان = خطر مرتفع.<br>3 اهتزازات = خطر حرج. توقف!
+            <div class="info-section">زر الخروج</div>
+            في أعلى الشاشة جهة اليمين.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page" id="p-about">
+      <div class="info-bg">
+        <div class="info-head">
+          <button class="icon-btn" onclick="goTo('p-home')" style="font-size:18px;background:#364842">‹</button>
+          <div class="info-title">حول تطبيق وصل</div>
+          <div style="width:38px"></div>
+        </div>
+        <div class="info-content">
+          <div class="info-card">
+            <div class="info-section">ما هو وصل؟</div>
+            مساعد بصري للمكفوفين وضعيفي البصر.<br>يكشف الأشياء والعوائق أمامك فوراً.
+            <div class="info-section">المزايا</div>
+            يعمل بدون إنترنت كاملاً.<br>وصف صوتي عربي تلقائي.<br>يكشف 80 نوعاً من الأشياء.<br>اهتزاز ذكي ثلاثي المستوى.
+            <div class="info-section">التقنية</div>
+            نموذج YOLO11n + TensorFlow Lite.<br>Flutter / Dart — أندرويد.
+            <div class="info-section">الرؤية المستقبلية</div>
+            جهاز ذكي يُرتدى على الصدر.<br>بدون حاجة لإمساك الهاتف.
+            <div style="margin-top:14px;font-size:8px;color:#6F8F88;text-align:center">الإصدار 1.0.0 — هاجر حماد الشمري</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="nav-btns">
+  <button class="nav-btn" onclick="goTo('p-splash')">السبلاش</button>
+  <button class="nav-btn" onclick="goTo('p-home')">الرئيسية</button>
+  <button class="nav-btn" onclick="startCam()">الكاميرا</button>
+  <button class="nav-btn" onclick="goTo('p-info')">التعليمات</button>
+  <button class="nav-btn" onclick="goTo('p-about')">حول التطبيق</button>
+</div>
+<script>
+const allPages=['p-splash','p-home','p-cam','p-info','p-about'];
+function goTo(id){allPages.forEach(p=>{document.getElementById(p).classList.remove('active')});document.getElementById(id).classList.add('active')}
+const detections=[
+  {level:'خطر متوسط',color:'#E0B15C',tag:'شخص 🟡',msg:'خطر متوسط. يوجد شخص أمامك مباشرة. امشِ بحذر.',emoji:'🚶',bx:'30%',by:'20%',bw:'70px',bh:'120px'},
+  {level:'خطر مرتفع',color:'#C96B6B',tag:'سيارة 🔴',msg:'خطر مرتفع. يوجد سيارة على يمينك، قريب جداً. انتبه!',emoji:'🚗',bx:'10%',by:'40%',bw:'120px',bh:'70px'},
+  {level:'تنبيه',color:'#8FA650',tag:'كرسي 🟡',msg:'تنبيه. يوجد كرسي على يسارك.',emoji:'🪑',bx:'40%',by:'35%',bw:'60px',bh:'80px'},
+  {level:'تحذير! خطر حرج',color:'#C96B6B',tag:'شاحنة 🔴',msg:'تحذير! يوجد شاحنة أمامك مباشرة. توقف فوراً!',emoji:'🚛',bx:'5%',by:'38%',bw:'150px',bh:'80px'},
+  {level:'آمن',color:'#6FA67A',tag:'لا عوائق 🟢',msg:'المكان آمن. لا عوائق ظاهرة.',emoji:'🌿',bx:'20%',by:'30%',bw:'60px',bh:'60px'},
+];
+let detIdx=0,analyzing=true,detTimer=null,flashOn=false;
+function updateDetection(){
+  const d=detections[detIdx];
+  document.getElementById('scene-obj').textContent=d.emoji;
+  document.getElementById('scene-obj').style.left=d.bx;
+  const box=document.getElementById('det-box');
+  box.style.left=d.bx;box.style.top=d.by;box.style.width=d.bw;box.style.height=d.bh;box.style.borderColor=d.color;
+  document.getElementById('result-panel').style.borderColor=d.color;
+  document.getElementById('rp-dot').style.background=d.color;
+  document.getElementById('rp-dot').style.boxShadow='0 0 8px '+d.color;
+  document.getElementById('rp-level').style.color=d.color;
+  document.getElementById('rp-level').textContent=d.level;
+  document.getElementById('rp-tag').style.background=d.color+'22';
+  document.getElementById('rp-tag').style.color=d.color;
+  document.getElementById('rp-tag').textContent=d.tag;
+  document.getElementById('rp-msg').textContent=d.msg;
+}
+function nextDetection(){if(!analyzing)return;detIdx=(detIdx+1)%detections.length;updateDetection()}
+function startCam(){goTo('p-cam');analyzing=true;document.getElementById('sdot').classList.add('pulse');document.getElementById('sdot').style.background='#6FA67A';document.getElementById('stxt').textContent='التحليل يعمل';document.getElementById('toggle-circle').textContent='⏹';document.getElementById('toggle-lbl').textContent='إيقاف';clearInterval(detTimer);detTimer=setInterval(nextDetection,3000)}
+function toggleAnalysis(){analyzing=!analyzing;const c=document.getElementById('toggle-circle'),l=document.getElementById('toggle-lbl'),d=document.getElementById('sdot'),s=document.getElementById('stxt');if(analyzing){c.textContent='⏹';l.textContent='إيقاف';d.style.background='#6FA67A';d.classList.add('pulse');s.textContent='التحليل يعمل';detTimer=setInterval(nextDetection,3000)}else{c.textContent='▶';l.textContent='تشغيل';d.style.background='#C96B6B';d.classList.remove('pulse');s.textContent='متوقف';clearInterval(detTimer)}}
+function replayMsg(){const m=document.getElementById('rp-msg');m.style.opacity='0.2';setTimeout(()=>m.style.opacity='1',400)}
+function askNow(){detIdx=Math.floor(Math.random()*detections.length);updateDetection()}
+function toggleFlash(btn){flashOn=!flashOn;btn.style.background=flashOn?'#E0B15CAA':'#36484299'}
+detTimer=setInterval(nextDetection,3000);
+
+// Web Speech API — صوت عربي حقيقي
+function speak(text) {
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'ar-SA';
+  u.rate = 0.9;
+  u.pitch = 1.0;
+  u.volume = 1.0;
+  // جرب صوت عربي إذا متوفر
+  const voices = window.speechSynthesis.getVoices();
+  const ar = voices.find(v => v.lang.includes('ar'));
+  if (ar) u.voice = ar;
+  window.speechSynthesis.speak(u);
+}
+
+// تحدث عند فتح كل صفحة
+const origGoTo = goTo;
+goTo = function(id) {
+  origGoTo(id);
+  if (id === 'p-home') speak('الصفحة الرئيسية. اضغط على أي زر مرة واحدة لسماع وصفه.');
+  if (id === 'p-info') speak('التعليمات. اضغط مرة على أي زر لسماع وصفه. انتظر كلمة جاهز. ثم اضغط مرة ثانية لتنفيذه.');
+  if (id === 'p-about') speak('حول تطبيق وصل. مساعد بصري للمكفوفين. يعمل بدون إنترنت.');
+};
+
+// تحدث عند تغيير الكشف
+const origUpdate = updateDetection;
+updateDetection = function() {
+  origUpdate();
+  const msg = document.getElementById('rp-msg').textContent;
+  speak(msg);
+};
+
+// تحدث عند الضغط على إعادة
+const origReplay = replayMsg;
+replayMsg = function() {
+  origReplay();
+  const msg = document.getElementById('rp-msg').textContent;
+  speak(msg);
+};
+
+// تحدث عند السبلاش
+document.getElementById('p-splash').addEventListener('click', function() {
+  speak('مرحباً بك في وصل. عيونك الذكية بكل مكان.');
+});
+
+// تحدث عند فتح الكاميرا
+const origStartCam = startCam;
+startCam = function() {
+  origStartCam();
+  speak('تم فتح الكاميرا. يبدأ التحليل الآن.');
+  setTimeout(() => {
+    const msg = document.getElementById('rp-msg').textContent;
+    speak(msg);
+  }, 2000);
+};
+
+// تحدث على زر ما أمامي
+const origAskNow = askNow;
+askNow = function() {
+  origAskNow();
+  setTimeout(() => {
+    const msg = document.getElementById('rp-msg').textContent;
+    speak(msg);
+  }, 100);
+};
+
+// تأكد من تحميل الأصوات
+window.speechSynthesis.onvoiceschanged = function() {
+  window.speechSynthesis.getVoices();
+};
+
+</script>
+</body>
+</html>
