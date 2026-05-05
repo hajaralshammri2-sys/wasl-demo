@@ -87,7 +87,7 @@ body{background:linear-gradient(135deg,#1a2a20 0%,#0d1a12 100%);min-height:100vh
 <div class="page-title">وصل — نموذج تفاعلي تجريبي</div>
 <div class="phone">
   <div class="screen">
-    <div class="page active" id="p-splash" onclick="goTo('p-home')">
+    <div class="page active" id="p-splash">
       <div class="splash-bg">
         <div class="eye-circle">
           <svg width="50" height="50" viewBox="0 0 44 44" fill="none">
@@ -263,77 +263,114 @@ function askNow(){detIdx=Math.floor(Math.random()*detections.length);updateDetec
 function toggleFlash(btn){flashOn=!flashOn;btn.style.background=flashOn?'#E0B15CAA':'#36484299'}
 detTimer=setInterval(nextDetection,3000);
 
-// Web Speech API — صوت عربي حقيقي
+
+
+
+// ══ Web Speech — صوت عربي ══
+let speaking = false;
+let speechQueue = [];
+
 function speak(text) {
   if (!('speechSynthesis' in window)) return;
+  speechQueue.push(text);
+  processSpeech();
+}
+
+function processSpeech() {
+  if (speaking || speechQueue.length === 0) return;
+  speaking = true;
   window.speechSynthesis.cancel();
+  const text = speechQueue.shift();
   const u = new SpeechSynthesisUtterance(text);
   u.lang = 'ar-SA';
-  u.rate = 0.9;
+  u.rate = 0.85;
   u.pitch = 1.0;
   u.volume = 1.0;
-  // جرب صوت عربي إذا متوفر
   const voices = window.speechSynthesis.getVoices();
-  const ar = voices.find(v => v.lang.includes('ar'));
+  const ar = voices.find(v => v.lang && v.lang.startsWith('ar'));
   if (ar) u.voice = ar;
+  u.onend = () => { speaking = false; processSpeech(); };
+  u.onerror = () => { speaking = false; processSpeech(); };
   window.speechSynthesis.speak(u);
 }
 
-// تحدث عند فتح كل صفحة
-const origGoTo = goTo;
-goTo = function(id) {
-  origGoTo(id);
-  if (id === 'p-home') speak('الصفحة الرئيسية. اضغط على أي زر مرة واحدة لسماع وصفه.');
-  if (id === 'p-info') speak('التعليمات. اضغط مرة على أي زر لسماع وصفه. انتظر كلمة جاهز. ثم اضغط مرة ثانية لتنفيذه.');
-  if (id === 'p-about') speak('حول تطبيق وصل. مساعد بصري للمكفوفين. يعمل بدون إنترنت.');
-};
+function stopSpeech() {
+  speechQueue = [];
+  speaking = false;
+  window.speechSynthesis.cancel();
+}
 
-// تحدث عند تغيير الكشف
-const origUpdate = updateDetection;
-updateDetection = function() {
-  origUpdate();
-  const msg = document.getElementById('rp-msg').textContent;
-  speak(msg);
-};
-
-// تحدث عند الضغط على إعادة
-const origReplay = replayMsg;
-replayMsg = function() {
-  origReplay();
-  const msg = document.getElementById('rp-msg').textContent;
-  speak(msg);
-};
-
-// تحدث عند السبلاش
+// فقط عند الضغط على السبلاش
 document.getElementById('p-splash').addEventListener('click', function() {
+  stopSpeech();
   speak('مرحباً بك في وصل. عيونك الذكية بكل مكان.');
+  setTimeout(() => goTo('p-home'), 300);
 });
 
-// تحدث عند فتح الكاميرا
-const origStartCam = startCam;
-startCam = function() {
-  origStartCam();
-  speak('تم فتح الكاميرا. يبدأ التحليل الآن.');
-  setTimeout(() => {
-    const msg = document.getElementById('rp-msg').textContent;
-    speak(msg);
-  }, 2000);
+// الصفحة الرئيسية
+const _goTo = goTo;
+goTo = function(id) {
+  _goTo(id);
+  stopSpeech();
+  if (id === 'p-home') {
+    setTimeout(() => speak('الصفحة الرئيسية. يوجد ثلاثة أزرار. الزر الأول فتح الكاميرا. الزر الثاني التعليمات. الزر الثالث حول التطبيق.'), 300);
+  } else if (id === 'p-info') {
+    setTimeout(() => speak('التعليمات. اضغط مرة على أي زر لسماع وصفه. انتظر كلمة جاهز. ثم اضغط مرة ثانية لتنفيذه. في صفحة الكاميرا، التطبيق يكشف الأشياء تلقائياً.'), 300);
+  } else if (id === 'p-about') {
+    setTimeout(() => speak('حول تطبيق وصل. مساعد بصري للمكفوفين. يعمل بدون إنترنت. يكشف ثمانين نوعاً من الأشياء.'), 300);
+  }
 };
 
-// تحدث على زر ما أمامي
-const origAskNow = askNow;
+// فتح الكاميرا
+const _startCam = startCam;
+startCam = function() {
+  _startCam();
+  stopSpeech();
+  setTimeout(() => {
+    speak('تم فتح الكاميرا. زر الخروج في أعلى الشاشة جهة اليمين. يبدأ التحليل الآن.');
+    setTimeout(() => {
+      const msg = document.getElementById('rp-msg').textContent;
+      speak(msg);
+    }, 3000);
+  }, 300);
+};
+
+// تغيير الكشف — يتكلم فقط اذا الكاميرا شغالة
+const _updateDetection = updateDetection;
+updateDetection = function() {
+  _updateDetection();
+  if (analyzing) {
+    stopSpeech();
+    const msg = document.getElementById('rp-msg').textContent;
+    speak(msg);
+  }
+};
+
+// زر إعادة
+const _replayMsg = replayMsg;
+replayMsg = function() {
+  _replayMsg();
+  stopSpeech();
+  const msg = document.getElementById('rp-msg').textContent;
+  speak(msg);
+};
+
+// زر ما أمامي
+const _askNow = askNow;
 askNow = function() {
-  origAskNow();
+  _askNow();
+  stopSpeech();
   setTimeout(() => {
     const msg = document.getElementById('rp-msg').textContent;
     speak(msg);
   }, 100);
 };
 
-// تأكد من تحميل الأصوات
-window.speechSynthesis.onvoiceschanged = function() {
-  window.speechSynthesis.getVoices();
-};
+// تحميل الأصوات
+if (window.speechSynthesis.onvoiceschanged !== undefined) {
+  window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+}
+setTimeout(() => window.speechSynthesis.getVoices(), 100);
 
 </script>
 </body>
