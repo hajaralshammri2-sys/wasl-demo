@@ -2,525 +2,426 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>وصل | Wasl</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
+<title>وصل</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Tahoma,sans-serif;-webkit-tap-highlight-color:transparent}
-html,body{width:100%;height:100%;overflow:hidden;background:#000;display:flex;align-items:center;justify-content:center}
-.phone{width:100vw;max-width:390px;height:100vh;max-height:844px;position:relative;overflow:hidden;background:#C2DCD3}
-.page{position:absolute;top:0;left:0;width:100%;height:100%;transition:transform 0.35s cubic-bezier(.4,0,.2,1),opacity 0.35s;transform:translateX(100%);opacity:0;pointer-events:none}
-.page.active{transform:translateX(0);opacity:1;pointer-events:all}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;}
+html,body{width:100%;height:100%;overflow:hidden;background:#1a2a20;font-family:'Segoe UI',Tahoma,Arial,sans-serif;touch-action:none;}
+.scr{position:fixed;inset:0;display:none;flex-direction:column;}
+.scr.on{display:flex;}
 
-/* ══ SPLASH ══ */
-#p-splash{background:linear-gradient(160deg,#C2DCD3,#a8cfc4);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;cursor:pointer}
-.eye-circle{width:110px;height:110px;background:#364842;border-radius:50%;display:flex;align-items:center;justify-content:center}
-.splash-title{font-size:52px;font-weight:800;color:#364842;letter-spacing:-1px}
-.splash-tagline{font-size:13px;color:#6F8F88;letter-spacing:1px}
-.splash-dots{display:flex;gap:8px;margin-top:8px}
-.sdot{width:9px;height:9px;border-radius:50%;background:#6F8F8866}
-.sdot.on{background:#364842}
-.splash-tap{font-size:10px;color:#6F8F88;margin-top:30px;animation:fade 2s infinite}
-@keyframes fade{0%,100%{opacity:.3}50%{opacity:1}}
+/* ── UNLOCK ── */
+#s-unlock{background:linear-gradient(160deg,#2a3d30,#1a2a20);align-items:center;justify-content:center;gap:26px;cursor:pointer;}
+.ul-eye{width:110px;height:110px;border-radius:50%;background:#C2DCD3;display:flex;align-items:center;justify-content:center;font-size:52px;}
+.ul-name{font-size:44px;font-weight:800;color:#C2DCD3;letter-spacing:-2px;}
+.ul-hint{font-size:15px;color:#6F8F88;text-align:center;padding:0 40px;line-height:1.8;}
+.ul-bar{width:70px;height:4px;background:#6F8F88;border-radius:2px;animation:pu 1.5s infinite;}
+@keyframes pu{0%,100%{opacity:.2}50%{opacity:1}}
 
-/* ══ HOME ══ */
-#p-home{background:#C2DCD3;display:flex;flex-direction:column}
-.home-header{padding:24px 20px 12px;display:flex;align-items:center;gap:12px}
-.h-logo{width:42px;height:42px;background:#364842;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.h-title{font-size:22px;font-weight:800;color:#364842}
-.h-sub{font-size:10px;color:#6F8F88;margin-top:2px}
-.hint-box{margin:0 16px 16px;background:#EAF4F1;border-radius:14px;padding:12px 16px;border:1px solid #B0CBBF;font-size:11px;color:#6F8F88;display:flex;align-items:center;gap:10px;direction:rtl}
-.mbtn{margin:0 16px 12px;border-radius:20px;padding:18px 20px;display:flex;align-items:center;gap:12px;cursor:pointer;border:none;width:calc(100% - 32px);transition:transform .15s,opacity .15s;font-family:inherit;position:relative}
-.mbtn:active{transform:scale(.97);opacity:.85}
-.mbtn.p{background:#364842;box-shadow:0 8px 24px #36484233}
-.mbtn.s{background:#6F8F88}
-.mbtn.t{background:#D8EAE4}
-.mbtn-ico{font-size:22px}
-.mbtn-lbl{font-size:15px;font-weight:700}
-.mbtn-badge{position:absolute;left:16px;background:#E0B15C;border-radius:8px;padding:3px 10px;font-size:10px;font-weight:700;color:white;opacity:0;transition:opacity .3s}
-.mbtn-badge.show{opacity:1}
-.home-footer{text-align:center;font-size:9px;color:#6F8F88AA;padding:12px;margin-top:auto}
+/* ── HOME ── */
+#s-home{background:#C2DCD3;}
+.home-top{padding:max(env(safe-area-inset-top,24px),24px) 22px 16px;display:flex;align-items:center;gap:14px;}
+.home-logo{width:48px;height:48px;background:#364842;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.home-title{font-size:26px;font-weight:800;color:#364842;letter-spacing:-1px;}
+.home-sub{font-size:11px;color:#6F8F88;margin-top:2px;font-weight:600;}
+.home-hint{margin:0 20px 18px;background:#EAF4F1;border:1px solid #B0CBBF;border-radius:14px;padding:13px 16px;font-size:13px;color:#6F8F88;line-height:1.7;text-align:center;}
+.home-btns{flex:1;display:flex;flex-direction:column;padding:0 20px;gap:14px;justify-content:center;}
+.hbtn{border:none;border-radius:22px;padding:0 22px;display:flex;align-items:center;gap:16px;cursor:pointer;font-family:inherit;min-height:86px;position:relative;transition:transform .12s;}
+.hbtn:active{transform:scale(.97);}
+.hbtn.b1{background:#364842;box-shadow:0 8px 26px rgba(54,72,66,.3);}
+.hbtn.b2{background:#6F8F88;box-shadow:0 6px 18px rgba(111,143,136,.28);}
+.hbtn.b3{background:#D8EAE4;box-shadow:0 4px 12px rgba(0,0,0,.1);}
+.hbtn.focused{outline:4px solid rgba(224,177,92,.8);outline-offset:2px;}
+.hbtn-icon{font-size:28px;flex-shrink:0;}
+.hbtn-texts{flex:1;}
+.hbtn-label{font-size:18px;font-weight:800;display:block;}
+.hbtn-desc{font-size:12px;display:block;margin-top:2px;opacity:.68;}
+.hbtn.b1 .hbtn-label,.hbtn.b1 .hbtn-desc,.hbtn.b2 .hbtn-label,.hbtn.b2 .hbtn-desc{color:#fff;}
+.hbtn.b3 .hbtn-label{color:#364842;}.hbtn.b3 .hbtn-desc{color:#6F8F88;}
+.ready-badge{position:absolute;left:16px;top:50%;transform:translateY(-50%);background:#6FA67A;color:#fff;font-size:11px;font-weight:700;padding:4px 11px;border-radius:8px;opacity:0;transition:opacity .3s;}
+.ready-badge.on{opacity:1;}
+.home-footer{padding:12px;text-align:center;font-size:10px;color:#6F8F8899;}
 
-/* ══ CAMERA ══ */
-#p-cam{background:#000;display:flex;flex-direction:column}
-.cam-top{padding:12px 14px;display:flex;align-items:center;gap:10px;background:rgba(0,0,0,.8);z-index:2;flex-shrink:0}
-.ic-btn{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;color:white;transition:transform .15s;font-family:inherit;background:#36484299;font-size:18px;flex-shrink:0}
-.ic-btn:active{transform:scale(.88)}
-.cam-mid{display:flex;align-items:center;flex:1;gap:8px;overflow:hidden}
-.s-dot{width:9px;height:9px;border-radius:50%;background:#6FA67A;flex-shrink:0}
-.s-dot.pulse{animation:glow 1.5s infinite}
-@keyframes glow{0%,100%{opacity:1}50%{opacity:.3}}
-.s-lbl{font-size:11px;color:white;font-weight:600;white-space:nowrap}
-.dbar-row{display:flex;gap:4px;margin-right:auto}
-.dbar{height:5px;border-radius:3px;transition:all .4s}
-.cam-view{flex:1;position:relative;overflow:hidden;background:linear-gradient(180deg,#1a3a2a,#2d4a38,#1a2a1a);display:flex;align-items:center;justify-content:center}
-.scene-emoji{font-size:80px;transition:all .5s;animation:sway 3s ease-in-out infinite}
-@keyframes sway{0%,100%{transform:translateX(0)}50%{transform:translateX(12px)}}
-.det-box{position:absolute;border:2.5px solid #E0B15C;border-radius:6px;transition:all .5s;animation:dp 2s infinite}
-@keyframes dp{0%,100%{opacity:1}50%{opacity:.6}}
-.scan{position:absolute;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,#6FA67A,transparent);animation:sc 2.5s linear infinite;pointer-events:none}
-@keyframes sc{0%{top:10%}100%{top:90%}}
-.corner{position:absolute;width:20px;height:20px;border-color:#6FA67A88;border-style:solid}
-.tl{top:10px;left:10px;border-width:2px 0 0 2px}
-.tr{top:10px;right:10px;border-width:2px 2px 0 0}
-.bl{bottom:10px;left:10px;border-width:0 0 2px 2px}
-.br{bottom:10px;right:10px;border-width:0 2px 2px 0}
-.cam-stopped{position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:#00000088}
-.cam-stopped.show{display:flex}
-.stopped-txt{color:white;font-size:16px;font-weight:600}
-.result-card{margin:10px 12px;background:rgba(234,244,241,.97);border-radius:18px;padding:12px 14px;border:2.5px solid #E0B15C;transition:border-color .4s;flex-shrink:0}
-.rc-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;direction:rtl}
-.rc-dot{width:11px;height:11px;border-radius:50%;transition:all .4s;flex-shrink:0}
-.rc-level{font-size:12px;font-weight:800;transition:color .4s}
-.rc-tag{border-radius:6px;padding:3px 9px;font-size:9px;font-weight:700;margin-right:auto;transition:all .4s;white-space:nowrap}
-.rc-msg{font-size:11px;color:#364842;line-height:1.7;direction:rtl;text-align:right}
-.cam-actions{padding:10px 16px 16px;background:rgba(0,0,0,.8);display:flex;justify-content:space-around;flex-shrink:0}
-.act-btn{display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;border:none;background:transparent;font-family:inherit}
-.act-circle{width:52px;height:52px;border-radius:50%;border:2px solid;display:flex;align-items:center;justify-content:center;font-size:20px;transition:transform .15s}
-.act-circle:active{transform:scale(.88)}
-.act-c-stop{border-color:#C96B6B;background:#C96B6B22}
-.act-c-replay{border-color:#6F8F88;background:#6F8F8822}
-.act-c-hear{border-color:#E0B15C;background:#E0B15C22}
-.act-lbl{font-size:8px;color:rgba(255,255,255,.6)}
+/* ── CAMERA ── */
+#s-cam{background:#000;}
+#vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;}
+#cnv{display:none;}
+.scanl{position:absolute;inset:0;z-index:2;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.01) 3px,rgba(0,0,0,.01) 6px);}
 
-/* ══ INFO ══ */
-.info-pg{background:#EAF4F1;display:flex;flex-direction:column}
-.info-head{background:#C2DCD3;padding:14px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #B0CBBF;flex-shrink:0}
-.info-title{font-size:15px;font-weight:700;color:#364842;flex:1;text-align:right}
-.info-body{flex:1;padding:16px;overflow-y:auto}
-.info-card{background:white;border-radius:18px;padding:18px;font-size:11px;color:#364842;line-height:2.2;direction:rtl;text-align:right;border:.5px solid #B0CBBF}
-.sec{font-weight:800;font-size:12px;color:#364842;margin-top:14px;margin-bottom:4px;padding-right:8px;border-right:3px solid #6F8F88}
+/* top */
+.cam-top{position:absolute;top:0;left:0;right:0;z-index:30;padding-top:env(safe-area-inset-top,0px);background:linear-gradient(180deg,rgba(0,0,0,.82),transparent);padding-left:14px;padding-right:14px;padding-bottom:22px;display:flex;align-items:center;gap:10px;}
+.cbtn{width:52px;height:52px;border-radius:50%;border:none;background:rgba(54,72,66,.6);color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-family:inherit;transition:transform .12s;flex-shrink:0;}
+.cbtn:active{transform:scale(.87);}
+.cbtn.focused{outline:3px solid rgba(224,177,92,.85);outline-offset:2px;}
+.cam-mid{flex:1;display:flex;align-items:center;gap:8px;padding:0 4px;overflow:hidden;}
+.sdot{width:10px;height:10px;border-radius:50%;background:#6FA67A;flex-shrink:0;}
+.sdot.pulse{animation:glow 1.4s infinite;}.sdot.red{background:#C96B6B;}
+@keyframes glow{0%,100%{opacity:1}50%{opacity:.2}}
+.stxt{font-size:12px;color:rgba(255,255,255,.85);font-weight:700;}
 
-/* ══ BTN STATES ══ */
-.btn-state{position:absolute;left:16px;top:50%;transform:translateY(-50%);font-size:10px;font-weight:700;border-radius:8px;padding:3px 10px;opacity:0;transition:opacity .3s}
-.btn-state.reading{background:#E0B15C;color:white;opacity:1}
-.btn-state.ready{background:#6FA67A;color:white;opacity:1}
+/* pill */
+.cam-pill{position:absolute;z-index:30;left:50%;transform:translateX(-50%);top:calc(env(safe-area-inset-top,0px) + 68px);background:rgba(0,0,0,.65);border:1.5px solid rgba(111,166,122,.5);border-radius:99px;padding:9px 22px;display:flex;align-items:center;gap:9px;backdrop-filter:blur(12px);max-width:90vw;white-space:nowrap;transition:border-color .3s,background .3s;}
+.cam-pill.danger{border-color:rgba(201,107,107,.8);background:rgba(100,0,0,.35);}
+.cam-pill.warn{border-color:rgba(224,177,92,.7);background:rgba(90,60,0,.3);}
+.pdot{width:9px;height:9px;border-radius:50%;background:#6FA67A;flex-shrink:0;box-shadow:0 0 8px rgba(111,166,122,.8);}
+.pdot.r{background:#C96B6B;box-shadow:0 0 8px rgba(201,107,107,.8);}
+.pdot.y{background:#E0B15C;box-shadow:0 0 8px rgba(224,177,92,.8);}
+.ptxt{font-size:13px;font-weight:700;color:rgba(255,255,255,.95);}
+
+/* bbox */
+.bbox{position:absolute;z-index:20;border:2.5px solid #E0B15C;border-radius:4px;pointer-events:none;display:none;box-shadow:0 0 26px rgba(224,177,92,.3);animation:bb 1.5s ease-in-out infinite;}
+.bbox.on{display:block;}
+@keyframes bb{0%,100%{opacity:.9}50%{opacity:.5}}
+.bbox::before,.bbox::after,.bbl,.bbr{content:'';position:absolute;width:14px;height:14px;border-color:#E0B15C;border-style:solid;}
+.bbox::before{top:-2px;left:-2px;border-width:3px 0 0 3px;}.bbox::after{top:-2px;right:-2px;border-width:3px 3px 0 0;}
+.bbl{bottom:-2px;left:-2px;border-width:0 0 3px 3px;}.bbr{bottom:-2px;right:-2px;border-width:0 3px 3px 0;}
+.bbtag{position:absolute;top:-30px;left:0;background:#E0B15C;color:#fff;font-size:11px;font-weight:800;padding:3px 10px;border-radius:4px;white-space:nowrap;}
+.bbconf{position:absolute;bottom:-24px;left:0;background:rgba(0,0,0,.8);border:1px solid rgba(224,177,92,.4);color:#E0B15C;font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px;font-family:monospace;white-space:nowrap;}
+
+/* result */
+.rcard{position:absolute;z-index:25;left:12px;right:12px;bottom:108px;background:rgba(234,244,241,.97);border-radius:18px;padding:14px 16px;border:2.5px solid #6FA67A;transition:border-color .4s,transform .35s;transform:translateY(200%);}
+.rcard.on{transform:translateY(0);}
+.rc-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.rcdot{width:12px;height:12px;border-radius:50%;flex-shrink:0;transition:all .4s;}
+.rclevel{font-size:13px;font-weight:800;transition:color .4s;}
+.rctag{border-radius:7px;padding:3px 10px;font-size:10px;font-weight:700;margin-right:auto;white-space:nowrap;}
+.rcmsg{font-size:13px;color:#364842;line-height:1.75;text-align:right;}
+.rcdist{font-size:11px;color:#6F8F88;margin-top:5px;}
+
+/* analyzing */
+.anwrap{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:28;background:rgba(0,0,0,.68);border:1px solid rgba(111,166,122,.3);border-radius:16px;padding:14px 22px;display:flex;align-items:center;gap:10px;backdrop-filter:blur(10px);opacity:0;pointer-events:none;transition:opacity .25s;}
+.anwrap.on{opacity:1;}
+.spin{width:20px;height:20px;border:2.5px solid rgba(111,166,122,.2);border-top-color:#6FA67A;border-radius:50%;animation:sp .65s linear infinite;flex-shrink:0;}
+@keyframes sp{to{transform:rotate(360deg);}}
+.antxt{font-size:13px;font-weight:700;color:#6FA67A;}
+
+/* cam bottom 3 btns */
+.cam-btns{position:absolute;bottom:0;left:0;right:0;z-index:30;padding:12px 16px;padding-bottom:max(env(safe-area-inset-bottom,16px),16px);background:linear-gradient(0deg,rgba(0,0,0,.92),transparent);display:flex;gap:12px;}
+.camb{flex:1;border:none;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:13px 8px;min-height:70px;cursor:pointer;font-family:inherit;-webkit-appearance:none;transition:transform .12s;}
+.camb:active{transform:scale(.93);}
+.camb.focused{outline:3px solid rgba(224,177,92,.85);outline-offset:2px;}
+.camb-icon{font-size:26px;line-height:1;}
+.camb-lbl{font-size:11px;font-weight:800;}
+.camb.c1{background:rgba(54,72,66,.7);border:1.5px solid rgba(111,166,122,.3);}.camb.c1 .camb-lbl{color:rgba(255,255,255,.85);}
+.camb.c2{flex:1.4;background:rgba(201,107,107,.85);border:1.5px solid rgba(201,107,107,.5);box-shadow:0 4px 18px rgba(201,107,107,.35);}.camb.c2 .camb-lbl{color:#fff;}
+.camb.c3{background:rgba(224,177,92,.85);border:1.5px solid rgba(224,177,92,.5);box-shadow:0 4px 18px rgba(224,177,92,.28);}.camb.c3 .camb-lbl{color:#fff;}
+
+.toast{position:fixed;z-index:99;bottom:140px;left:14px;right:14px;background:rgba(12,4,4,.96);border:1px solid rgba(201,107,107,.4);border-radius:14px;padding:13px 16px;font-size:14px;font-weight:600;color:#ff9090;text-align:center;line-height:1.6;opacity:0;pointer-events:none;transition:opacity .3s;}
+.toast.on{opacity:1;}
 </style>
 </head>
 <body>
-<div class="phone">
 
-<!-- SPLASH -->
-<div class="page active" id="p-splash">
-  <div style="height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;background:linear-gradient(160deg,#C2DCD3,#a8cfc4)">
-    <div class="eye-circle">
-      <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
-        <ellipse cx="28" cy="28" rx="22" ry="14" stroke="#C2DCD3" stroke-width="3"/>
-        <circle cx="28" cy="28" r="8" fill="#C2DCD3"/>
-        <circle cx="31" cy="25" r="3" fill="#364842"/>
-      </svg>
-    </div>
-    <div class="splash-title">وصل</div>
-    <div class="splash-tagline">عيونك الذكية بكل مكان</div>
-    <div class="splash-dots">
-      <div class="sdot on"></div><div class="sdot"></div><div class="sdot"></div>
-    </div>
-    <div class="splash-tap">اضغط للمتابعة ←</div>
-  </div>
+<!-- UNLOCK -->
+<div class="scr on" id="s-unlock" onclick="unlock()">
+  <div class="ul-eye">👁</div>
+  <div class="ul-name">وصل</div>
+  <div class="ul-hint">اضغط في أي مكان<br>لتفعيل الصوت وبدء التطبيق</div>
+  <div class="ul-bar"></div>
 </div>
 
 <!-- HOME -->
-<div class="page" id="p-home">
-  <div style="height:100%;display:flex;flex-direction:column;background:#C2DCD3">
-    <div class="home-header">
-      <div class="h-logo">
-        <svg width="24" height="24" viewBox="0 0 56 56" fill="none">
-          <ellipse cx="28" cy="28" rx="22" ry="14" stroke="#C2DCD3" stroke-width="3"/>
-          <circle cx="28" cy="28" r="7" fill="#C2DCD3"/>
-        </svg>
-      </div>
-      <div><div class="h-title">وصل</div><div class="h-sub">عيونك الذكية بكل مكان</div></div>
+<div class="scr" id="s-home">
+  <div class="home-top">
+    <div class="home-logo">👁</div>
+    <div>
+      <div class="home-title">وصل</div>
+      <div class="home-sub">عيونك الذكية بكل مكان</div>
     </div>
-    <div class="hint-box">
-      <span style="font-size:16px">👆</span>
-      <span>اضغط مرة لسماع وصف الزر · اضغط مرة ثانية للتنفيذ</span>
-    </div>
-    <button class="mbtn p" id="btn-cam">
-      <span class="mbtn-ico">📷</span>
-      <span class="mbtn-lbl" style="color:white">فتح الكاميرا</span>
-      <span class="btn-state" id="bs-cam"></span>
-    </button>
-    <button class="mbtn s" id="btn-info">
-      <span class="mbtn-ico">❓</span>
-      <span class="mbtn-lbl" style="color:white">التعليمات</span>
-      <span class="btn-state" id="bs-info"></span>
-    </button>
-    <button class="mbtn t" id="btn-about">
-      <span class="mbtn-ico">ℹ️</span>
-      <span class="mbtn-lbl" style="color:#364842">حول التطبيق</span>
-      <span class="btn-state" id="bs-about"></span>
-    </button>
-    <div class="home-footer">🔒 وصل — مصنوع لذوي الإعاقة البصرية</div>
   </div>
+  <div class="home-hint">اضغط أي زر لسماعه · اضغط مرة ثانية للدخول</div>
+  <div class="home-btns">
+    <button class="hbtn b1" id="hb1" onclick="htap('hb1')">
+      <span class="hbtn-icon">📷</span>
+      <div class="hbtn-texts">
+        <span class="hbtn-label">فتح الكاميرا</span>
+        <span class="hbtn-desc">تحليل ذكي وكشف العوائق</span>
+      </div>
+      <span class="ready-badge" id="rb1">جاهز ✓</span>
+    </button>
+    <button class="hbtn b2" id="hb2" onclick="htap('hb2')">
+      <span class="hbtn-icon">❓</span>
+      <div class="hbtn-texts">
+        <span class="hbtn-label">كيف تستخدم وصل</span>
+        <span class="hbtn-desc">تعليمات الاستخدام</span>
+      </div>
+      <span class="ready-badge" id="rb2">جاهز ✓</span>
+    </button>
+    <button class="hbtn b3" id="hb3" onclick="htap('hb3')">
+      <span class="hbtn-icon">ℹ️</span>
+      <div class="hbtn-texts">
+        <span class="hbtn-label">عن وصل</span>
+        <span class="hbtn-desc">معلومات عن المشروع</span>
+      </div>
+      <span class="ready-badge" id="rb3">جاهز ✓</span>
+    </button>
+  </div>
+  <div class="home-footer">وصل | Wasel AI · مساعد بصري ذكي</div>
 </div>
 
 <!-- CAMERA -->
-<div class="page" id="p-cam">
-  <div style="height:100%;display:flex;flex-direction:column;background:#000">
-    <div class="cam-top">
-      <button class="ic-btn" id="btn-exit-cam">‹</button>
-      <div class="cam-mid">
-        <div class="s-dot" id="sdot"></div>
-        <span class="s-lbl" id="stxt">متوقف</span>
-        <div class="dbar-row">
-          <div class="dbar" style="width:24px;background:#6FA67A44"></div>
-          <div class="dbar" style="width:24px;background:#8FA65044"></div>
-          <div class="dbar" style="width:16px;background:#E0B15C44"></div>
-          <div class="dbar" style="width:12px;background:#C96B6B44"></div>
-          <div class="dbar" style="width:9px;background:#8B000044"></div>
-        </div>
-      </div>
-      <button class="ic-btn" id="btn-flash">⚡</button>
-    </div>
-    <div class="cam-view">
-      <div id="scene-obj" style="font-size:80px;transition:all .5s;animation:sway 3s ease-in-out infinite">🌿</div>
-      <div class="det-box" id="det-box" style="width:80px;height:140px;top:20%;left:35%;border-color:#6FA67A"></div>
-      <div class="scan"></div>
-      <div class="corner tl"></div><div class="corner tr"></div>
-      <div class="corner bl"></div><div class="corner br"></div>
-      <div class="cam-stopped" id="cam-stopped"><span class="stopped-txt">⏸ التحليل متوقف</span></div>
-    </div>
-    <div class="result-card" id="result-card">
-      <div class="rc-row">
-        <div class="rc-dot" id="rc-dot" style="background:#6FA67A;box-shadow:0 0 8px #6FA67A"></div>
-        <span class="rc-level" id="rc-level" style="color:#6FA67A">آمن</span>
-        <span class="rc-tag" id="rc-tag" style="background:#6FA67A22;color:#6FA67A">لا عوائق 🟢</span>
-      </div>
-      <div class="rc-msg" id="rc-msg">اضغط زر تشغيل لبدء التحليل.</div>
-    </div>
-    <div class="cam-actions">
-      <button class="act-btn" id="btn-toggle">
-        <div class="act-circle act-c-stop" id="toggle-circle" style="border-color:#6FA67A;background:#6FA67A22">▶</div>
-        <span class="act-lbl" id="toggle-lbl">تشغيل</span>
-      </button>
-      <button class="act-btn" id="btn-replay">
-        <div class="act-circle act-c-replay">↩</div>
-        <span class="act-lbl">إعادة</span>
-      </button>
-      <button class="act-btn" id="btn-ask">
-        <div class="act-circle act-c-hear">👂</div>
-        <span class="act-lbl">ما أمامي؟</span>
-      </button>
-    </div>
+<div class="scr" id="s-cam">
+  <video id="vid" autoplay playsinline muted></video>
+  <canvas id="cnv"></canvas>
+  <div class="scanl"></div>
+  <div class="bbox" id="bbox"><span class="bbl"></span><span class="bbr"></span><div class="bbtag" id="bbtag">عائق</div><div class="bbconf" id="bbconf">ثقة: --</div></div>
+  <div class="cam-top">
+    <button class="cbtn" id="btn-exit" onclick="exitTap()">←</button>
+    <div class="cam-mid"><div class="sdot" id="sdot"></div><span class="stxt" id="stxt">جاهز</span></div>
+    <button class="cbtn" id="btn-flip" onclick="flipTap()">🔄</button>
+  </div>
+  <div class="cam-pill" id="pill"><div class="pdot" id="pdot"></div><span class="ptxt" id="ptxt">جارٍ الفتح...</span></div>
+  <div class="anwrap" id="anwrap"><div class="spin"></div><span class="antxt">جارٍ التحليل...</span></div>
+  <div class="rcard" id="rcard">
+    <div class="rc-row"><div class="rcdot" id="rcdot" style="background:#6FA67A;"></div><span class="rclevel" id="rclevel" style="color:#6FA67A;">انتظار</span><span class="rctag" id="rctag" style="background:#6FA67A22;color:#6FA67A;">—</span></div>
+    <div class="rcmsg" id="rcmsg">سيبدأ التحليل الآن...</div>
+    <div class="rcdist" id="rcdist"></div>
+  </div>
+  <div class="cam-btns">
+    <button class="camb c1" id="cb1" onclick="ctap('cb1')"><span class="camb-icon">🔊</span><span class="camb-lbl">إعادة</span></button>
+    <button class="camb c2" id="cb2" onclick="ctap('cb2')"><span class="camb-icon">👁</span><span class="camb-lbl">تحليل</span></button>
+    <button class="camb c3" id="cb3" onclick="ctap('cb3')"><span class="camb-icon" id="cb3i">⏸</span><span class="camb-lbl" id="cb3l">إيقاف</span></button>
   </div>
 </div>
 
-<!-- INFO -->
-<div class="page info-pg" id="p-info">
-  <div class="info-head">
-    <button class="ic-btn" id="btn-back-info" style="background:#364842">‹</button>
-    <div class="info-title">كيفية استخدام وصل</div>
-    <button class="ic-btn" style="background:#6F8F8844;font-size:14px" onclick="speak('التعليمات. اضغط مرة على أي زر لسماع وصفه. انتظر كلمة جاهز. ثم اضغط مرة ثانية لتنفيذه. في صفحة الكاميرا، التطبيق يكشف الأشياء تلقائياً. اهتزاز مرة خطر متوسط. اهتزازان خطر مرتفع. ثلاثة اهتزازات خطر حرج.')">🔊</button>
-  </div>
-  <div class="info-body">
-    <div class="info-card">
-      <div class="sec">طريقة الأزرار</div>
-      اضغط مرة واحدة لسماع وصف الزر.<br>
-      انتظر حتى تسمع كلمة "جاهز".<br>
-      ثم اضغط مرة ثانية لتنفيذه.
-      <div class="sec">في صفحة الكاميرا</div>
-      التطبيق يكشف الأشياء تلقائياً كل ثوانٍ.<br>
-      يذكر اسم الشيء وموقعه ومستوى الخطر.<br>
-      زر "ما أمامي؟" يصف المشهد فوراً عند الطلب.
-      <div class="sec">نظام الاهتزاز</div>
-      اهتزاز مرة واحدة = خطر متوسط.<br>
-      اهتزازان = خطر مرتفع.<br>
-      ثلاثة اهتزازات = خطر حرج. توقف فوراً!
-      <div class="sec">زر الخروج</div>
-      في أعلى الشاشة جهة اليمين.<br>
-      اضغط مرة للقراءة ثم مرة للخروج.
-    </div>
-  </div>
-</div>
-
-<!-- ABOUT -->
-<div class="page info-pg" id="p-about">
-  <div class="info-head">
-    <button class="ic-btn" id="btn-back-about" style="background:#364842">‹</button>
-    <div class="info-title">حول تطبيق وصل</div>
-    <button class="ic-btn" style="background:#6F8F8844;font-size:14px" onclick="speak('حول تطبيق وصل. مساعد بصري ذكي للمكفوفين وضعيفي البصر. يعمل بالكامل بدون إنترنت. يكشف ثمانين نوعاً من الأشياء. صوت عربي واضح مع اهتزاز ثلاثي المستوى. المرحلة القادمة جهاز ذكي يُرتدى على الصدر.')">🔊</button>
-  </div>
-  <div class="info-body">
-    <div class="info-card">
-      <div class="sec">ما هو وصل؟</div>
-      مساعد بصري ذكي للمكفوفين وضعيفي البصر.<br>
-      يستخدم كاميرا الهاتف لكشف الأشياء والعوائق وتحويلها لتنبيهات صوتية واهتزازية فورية.
-      <div class="sec">المزايا الرئيسية</div>
-      ✓ يعمل بالكامل بدون إنترنت.<br>
-      ✓ وصف صوتي عربي تلقائي.<br>
-      ✓ يكشف 80 نوعاً من الأشياء.<br>
-      ✓ اهتزاز ذكي ثلاثي المستوى.<br>
-      ✓ واجهة مصممة خصيصاً للمكفوفين.
-      <div class="sec">التقنية المستخدمة</div>
-      نموذج YOLO11n بتقنية TensorFlow Lite.<br>
-      Flutter / Dart — يعمل على أندرويد.
-      <div class="sec">الرؤية المستقبلية</div>
-      جهاز ذكي يُرتدى على الصدر.<br>
-      بدون حاجة لإمساك الهاتف.
-      <div style="margin-top:16px;font-size:9px;color:#6F8F88;text-align:center">الإصدار 1.0.0 — هاجر حماد الشمري</div>
-    </div>
-  </div>
-</div>
-
-</div><!-- end phone -->
+<div class="toast" id="toast"></div>
 
 <script>
-// ══ SPEECH ══
-let spkQueue=[], spkBusy=false;
-function speak(t){
-  if(!('speechSynthesis' in window))return;
-  spkQueue.push(t); _spk();
+/* ══ SPEECH ══ */
+function speak(txt, interrupt=true){
+  if(!('speechSynthesis' in window)) return;
+  if(interrupt) speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(txt);
+  u.lang = 'ar-SA'; u.rate = 0.88; u.pitch = 1; u.volume = 1;
+  const vs = speechSynthesis.getVoices();
+  const av = vs.find(v=>v.lang.startsWith('ar'));
+  if(av) u.voice = av;
+  speechSynthesis.speak(u);
 }
-function stopSpeak(){
-  spkQueue=[]; spkBusy=false;
-  window.speechSynthesis.cancel();
-}
-function _spk(){
-  if(spkBusy||spkQueue.length===0)return;
-  spkBusy=true;
-  const u=new SpeechSynthesisUtterance(spkQueue.shift());
-  u.lang='ar-SA'; u.rate=0.88; u.pitch=1; u.volume=1;
-  const vs=window.speechSynthesis.getVoices();
-  const ar=vs.find(v=>v.lang&&v.lang.startsWith('ar'));
-  if(ar)u.voice=ar;
-  u.onend=()=>{spkBusy=false;_spk()};
-  u.onerror=()=>{spkBusy=false;_spk()};
-  window.speechSynthesis.speak(u);
-}
-window.speechSynthesis.onvoiceschanged=()=>window.speechSynthesis.getVoices();
-setTimeout(()=>window.speechSynthesis.getVoices(),200);
+function stop(){ if('speechSynthesis' in window) speechSynthesis.cancel(); }
+function loadV(){ if('speechSynthesis' in window){ speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged=()=>speechSynthesis.getVoices(); } }
 
-// ══ PAGES ══
-function showPage(id){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+/* ══ SCREENS ══ */
+function show(id){ document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on')); document.getElementById(id).classList.add('on'); }
+
+/* ══ UNLOCK ══ */
+function unlock(){
+  const w=new SpeechSynthesisUtterance(' '); w.volume=0; w.lang='ar-SA';
+  speechSynthesis.speak(w);
+  show('s-home'); loadV();
+  setTimeout(()=>speak('مرحباً بك في وصل. عيونك الذكية بكل مكان. الصفحة الرئيسية فيها ثلاثة أزرار. اضغط أي زر لسماعه.'), 300);
 }
 
-// ══ BTN DOUBLE TAP ══
-const btnStates={};
-function doubleTap(btnId, desc, action, badgeId){
-  const state=btnStates[btnId]||0;
-  if(state===0){
-    stopSpeak();
-    speak(desc);
-    speak('جاهز. اضغط مرة أخرى للتنفيذ.');
-    btnStates[btnId]=1;
-    if(badgeId){
-      const b=document.getElementById(badgeId);
-      b.textContent='يقرأ...'; b.className='btn-state reading';
-      setTimeout(()=>{b.textContent='اضغط للتنفيذ';b.className='btn-state ready';},2200);
-    }
-    setTimeout(()=>{
-      btnStates[btnId]=0;
-      if(badgeId){document.getElementById(badgeId).className='btn-state';}
-    },8000);
+/* ══ HOME DOUBLE-TAP ══ */
+const HS={}, HT={};
+const HD={
+  hb1:{ say:'فتح الكاميرا. اضغط مرة ثانية للدخول.', go:()=>openCamera() },
+  hb2:{ say:'كيف تستخدم وصل. اضغط مرة ثانية للسماع.', go:()=>{ stop(); speak('اضغط زر فتح الكاميرا من الصفحة الرئيسية. أعطِ إذن الكاميرا. سيبدأ التحليل تلقائياً. في الكاميرا يوجد ثلاثة أزرار: إعادة، وتحليل، وإيقاف. كل زر اضغطه مرة لسماعه ومرة ثانية للتنفيذ.'); } },
+  hb3:{ say:'عن وصل. اضغط مرة ثانية للسماع.', go:()=>{ stop(); speak('وصل مساعد بصري ذكي للمكفوفين. المؤسسة هاجر الشمري. للتواصل صفر خمسة خمسة اثنين خمسة واحد صفر صفر أربعة ثمانية.'); } }
+};
+
+function htap(id){
+  clearTimeout(HT[id]);
+  if(!HS[id]){
+    // first tap
+    stop();
+    Object.keys(HS).forEach(k=>{ HS[k]=false; document.getElementById(k).classList.remove('focused'); document.getElementById('rb'+k.slice(-1)).classList.remove('on'); });
+    HS[id]=true;
+    document.getElementById(id).classList.add('focused');
+    speak(HD[id].say);
+    setTimeout(()=>document.getElementById('rb'+id.slice(-1)).classList.add('on'), 800);
+    HT[id]=setTimeout(()=>{ HS[id]=false; document.getElementById(id).classList.remove('focused'); document.getElementById('rb'+id.slice(-1)).classList.remove('on'); }, 7000);
   } else {
-    btnStates[btnId]=0;
-    if(badgeId){document.getElementById(badgeId).className='btn-state';}
-    stopSpeak();
-    action();
+    // second tap
+    HS[id]=false;
+    document.getElementById(id).classList.remove('focused');
+    document.getElementById('rb'+id.slice(-1)).classList.remove('on');
+    stop();
+    HD[id].go();
   }
 }
 
-// ══ SPLASH ══
-document.getElementById('p-splash').addEventListener('click',()=>{
-  stopSpeak();
-  speak('مرحباً بك في وصل، عيونك الذكية بكل مكان.');
-  setTimeout(()=>{
-    showPage('p-home');
-    setTimeout(()=>{
-      speak('الصفحة الرئيسية. يوجد ثلاثة أزرار. اضغط على أي زر مرة واحدة لسماع وصفه. انتظر كلمة جاهز. ثم اضغط مرة أخرى للتنفيذ. الزر الأول فتح الكاميرا. الزر الثاني التعليمات. الزر الثالث حول التطبيق.');
-    },400);
-  },300);
-});
+/* ══ CAMERA ══ */
+let stream=null, facing='environment', busy=false, analyzing=false, autoT=null, lastR=null;
+const ES={exit:false,flip:false}, ET={};
+const CS={cb1:false,cb2:false,cb3:false}, CT={};
 
-// ══ HOME BUTTONS ══
-document.getElementById('btn-cam').addEventListener('click',()=>{
-  doubleTap('btn-cam',
-    'الزر الأول. فتح الكاميرا. يبدأ كشف الأشياء تلقائياً.',
-    ()=>{
-      showPage('p-cam');
-      stopSpeak();
-      speak('تم فتح الكاميرا.');
-      speak('زر الخروج في أعلى الشاشة جهة اليمين. اضغط مرة أخرى للخروج.');
-      speak('اضغط زر تشغيل لبدء التحليل.');
-    },
-    'bs-cam'
-  );
-});
+const CD={
+  cb1:{ say:'إعادة. يُعيد آخر نتيجة. اضغط ثانية.', go:()=>{ stop(); if(lastR) speak(lastR.v||lastR.t); else speak('لا توجد نتيجة بعد.'); if(navigator.vibrate)navigator.vibrate(50); } },
+  cb2:{ say:'تحليل. يفحص المحيط الآن. اضغط ثانية.', go:()=>doAnalyze(false) },
+  cb3:{ say:()=>analyzing?'إيقاف التحليل التلقائي. اضغط ثانية.':'تشغيل التحليل التلقائي. اضغط ثانية.',
+        go:()=>{ if(analyzing){stopAuto();speak('تم الإيقاف.');}else{startAuto();speak('تم التشغيل.');} } }
+};
 
-document.getElementById('btn-info').addEventListener('click',()=>{
-  doubleTap('btn-info',
-    'الزر الثاني. التعليمات. يشرح كيفية استخدام التطبيق.',
-    ()=>{
-      showPage('p-info');
-      stopSpeak();
-      speak('التعليمات.');
-      speak('اضغط مرة على أي زر لسماع وصفه. انتظر كلمة جاهز. ثم اضغط مرة ثانية لتنفيذه.');
-    },
-    'bs-info'
-  );
-});
-
-document.getElementById('btn-about').addEventListener('click',()=>{
-  doubleTap('btn-about',
-    'الزر الثالث والأخير. حول تطبيق وصل.',
-    ()=>{
-      showPage('p-about');
-      stopSpeak();
-      speak('حول تطبيق وصل. مساعد بصري ذكي للمكفوفين. يعمل بدون إنترنت. يكشف ثمانين نوعاً من الأشياء.');
-    },
-    'bs-about'
-  );
-});
-
-// ══ BACK BUTTONS ══
-document.getElementById('btn-back-info').addEventListener('click',()=>{
-  doubleTap('btn-back-info',
-    'زر الرجوع. اضغط مرة أخرى للخروج.',
-    ()=>{showPage('p-home');stopSpeak();speak('تم الرجوع إلى الصفحة الرئيسية.');},
-    null
-  );
-});
-document.getElementById('btn-back-about').addEventListener('click',()=>{
-  doubleTap('btn-back-about',
-    'زر الرجوع. اضغط مرة أخرى للخروج.',
-    ()=>{showPage('p-home');stopSpeak();speak('تم الرجوع إلى الصفحة الرئيسية.');},
-    null
-  );
-});
-
-// ══ CAMERA EXIT ══
-document.getElementById('btn-exit-cam').addEventListener('click',()=>{
-  doubleTap('btn-exit-cam',
-    'زر الخروج في أعلى الشاشة جهة اليمين. اضغط مرة أخرى للخروج.',
-    ()=>{
-      stopAnalysis();
-      showPage('p-home');
-      stopSpeak();
-      setTimeout(()=>speak('تم الرجوع إلى الصفحة الرئيسية.'),300);
-    },
-    null
-  );
-});
-
-// ══ FLASH ══
-let flashOn=false;
-document.getElementById('btn-flash').addEventListener('click',()=>{
-  flashOn=!flashOn;
-  document.getElementById('btn-flash').style.background=flashOn?'#E0B15CAA':'#36484299';
-  document.getElementById('btn-flash').style.color=flashOn?'#364842':'white';
-  stopSpeak();
-  speak(flashOn?'تم تشغيل الفلاش.':'تم إيقاف الفلاش.');
-});
-
-// ══ DETECTION DATA ══
-const detections=[
-  {level:'آمن',color:'#6FA67A',tag:'لا عوائق 🟢',msg:'المكان آمن. لا عوائق ظاهرة.',emoji:'🌿',bx:'30%',by:'25%',bw:'90px',bh:'90px'},
-  {level:'تنبيه',color:'#8FA650',tag:'كرسي 🟡',msg:'تنبيه. يوجد كرسي على يسارك.',emoji:'🪑',bx:'15%',by:'30%',bw:'70px',bh:'90px'},
-  {level:'خطر متوسط',color:'#E0B15C',tag:'شخص 🟡',msg:'خطر متوسط. يوجد شخص أمامك مباشرة، على مسافة متوسطة. امشِ بحذر.',emoji:'🚶',bx:'32%',by:'18%',bw:'75px',bh:'130px'},
-  {level:'خطر مرتفع',color:'#C96B6B',tag:'سيارة 🔴',msg:'خطر مرتفع. يوجد سيارة على يمينك، قريب جداً. انتبه!',emoji:'🚗',bx:'8%',by:'38%',bw:'130px',bh:'80px'},
-  {level:'تحذير! خطر حرج',color:'#C96B6B',tag:'شاحنة 🔴',msg:'تحذير! يوجد شاحنة أمامك مباشرة. توقف فوراً!',emoji:'🚛',bx:'3%',by:'36%',bw:'160px',bh:'85px'},
-  {level:'تنبيه',color:'#8FA650',tag:'طاولة 🟡',msg:'تنبيه. يوجد طاولة أمامك مباشرة.',emoji:'🪵',bx:'20%',by:'42%',bw:'100px',bh:'60px'},
-  {level:'خطر متوسط',color:'#E0B15C',tag:'كلب 🟡',msg:'خطر متوسط. يوجد كلب على يمينك.',emoji:'🐕',bx:'40%',by:'38%',bw:'70px',bh:'70px'},
-];
-
-let detIdx=0, analyzing=false, detTimer=null;
-
-function applyDetection(d){
-  document.getElementById('scene-obj').textContent=d.emoji;
-  const box=document.getElementById('det-box');
-  box.style.left=d.bx; box.style.top=d.by;
-  box.style.width=d.bw; box.style.height=d.bh;
-  box.style.borderColor=d.color;
-  document.getElementById('result-card').style.borderColor=d.color;
-  document.getElementById('rc-dot').style.background=d.color;
-  document.getElementById('rc-dot').style.boxShadow='0 0 10px '+d.color;
-  document.getElementById('rc-level').style.color=d.color;
-  document.getElementById('rc-level').textContent=d.level;
-  document.getElementById('rc-tag').style.background=d.color+'22';
-  document.getElementById('rc-tag').style.color=d.color;
-  document.getElementById('rc-tag').textContent=d.tag;
-  document.getElementById('rc-msg').textContent=d.msg;
-  // update danger bar
-  const bars=document.querySelectorAll('.dbar');
-  const lvls=['#6FA67A','#8FA650','#E0B15C','#C96B6B','#8B0000'];
-  const widths=[24,24,16,12,9];
-  let activeIdx=0;
-  if(d.color==='#8FA650')activeIdx=1;
-  else if(d.color==='#E0B15C')activeIdx=2;
-  else if(d.color==='#C96B6B')activeIdx=3;
-  bars.forEach((b,i)=>{
-    b.style.background=i===activeIdx?lvls[i]:lvls[i]+'44';
-    b.style.width=(i===activeIdx?widths[i]+10:widths[i])+'px';
-  });
-}
-
-function nextDetection(){
-  if(!analyzing)return;
-  detIdx=(detIdx+1)%detections.length;
-  const d=detections[detIdx];
-  applyDetection(d);
-  stopSpeak();
-  speak(d.msg);
-}
-
-function startAnalysis(){
-  analyzing=true;
-  document.getElementById('sdot').classList.add('pulse');
-  document.getElementById('sdot').style.background='#6FA67A';
-  document.getElementById('stxt').textContent='التحليل يعمل';
-  document.getElementById('toggle-circle').textContent='⏹';
-  document.getElementById('toggle-circle').style.borderColor='#C96B6B';
-  document.getElementById('toggle-circle').style.background='#C96B6B22';
-  document.getElementById('toggle-lbl').textContent='إيقاف';
-  document.getElementById('cam-stopped').classList.remove('show');
-  detIdx=0;
-  applyDetection(detections[0]);
-  stopSpeak();
-  speak(detections[0].msg);
-  detTimer=setInterval(nextDetection,4000);
-}
-
-function stopAnalysis(){
-  analyzing=false;
-  clearInterval(detTimer);
-  document.getElementById('sdot').classList.remove('pulse');
-  document.getElementById('sdot').style.background='#C96B6B';
-  document.getElementById('stxt').textContent='متوقف';
-  document.getElementById('toggle-circle').textContent='▶';
-  document.getElementById('toggle-circle').style.borderColor='#6FA67A';
-  document.getElementById('toggle-circle').style.background='#6FA67A22';
-  document.getElementById('toggle-lbl').textContent='تشغيل';
-  document.getElementById('cam-stopped').classList.add('show');
-}
-
-// ══ CAMERA ACTIONS ══
-document.getElementById('btn-toggle').addEventListener('click',()=>{
-  if(!analyzing){
-    startAnalysis();
+function ctap(id){
+  clearTimeout(CT[id]);
+  if(!CS[id]){
+    stop();
+    Object.keys(CS).forEach(k=>{ CS[k]=false; document.getElementById(k).classList.remove('focused'); });
+    CS[id]=true;
+    document.getElementById(id).classList.add('focused');
+    const s=CD[id].say; speak(typeof s==='function'?s():s);
+    CT[id]=setTimeout(()=>{ CS[id]=false; document.getElementById(id).classList.remove('focused'); }, 7000);
   } else {
-    stopAnalysis();
-    stopSpeak();
-    speak('تم إيقاف التحليل.');
+    CS[id]=false; document.getElementById(id).classList.remove('focused');
+    stop(); CD[id].go();
   }
-});
+}
 
-document.getElementById('btn-replay').addEventListener('click',()=>{
-  stopSpeak();
-  const msg=document.getElementById('rc-msg').textContent;
-  speak(msg);
-});
+/* Exit double-tap */
+function exitTap(){
+  clearTimeout(ET.exit);
+  if(!ES.exit){
+    stop(); ES.exit=true;
+    document.getElementById('btn-exit').classList.add('focused');
+    speak('زر الخروج. اضغط ثانية للخروج.');
+    stopAuto();
+    ET.exit=setTimeout(()=>{ ES.exit=false; document.getElementById('btn-exit').classList.remove('focused'); startAuto(); }, 7000);
+  } else {
+    ES.exit=false; document.getElementById('btn-exit').classList.remove('focused');
+    stop(); if(stream){stream.getTracks().forEach(t=>t.stop());stream=null;}
+    stopAuto(); hideBbox(); show('s-home');
+    setTimeout(()=>speak('الصفحة الرئيسية. ثلاثة أزرار. اضغط أي زر لسماعه.'), 400);
+  }
+}
 
-document.getElementById('btn-ask').addEventListener('click',()=>{
-  stopSpeak();
-  speak('جاري التحليل.');
-  detIdx=Math.floor(Math.random()*detections.length);
-  setTimeout(()=>{
-    const d=detections[detIdx];
-    applyDetection(d);
-    speak(d.msg);
-  },800);
-});
+/* Flip double-tap */
+function flipTap(){
+  clearTimeout(ET.flip);
+  if(!ES.flip){
+    stop(); ES.flip=true;
+    document.getElementById('btn-flip').classList.add('focused');
+    speak('قلب الكاميرا. اضغط ثانية للتبديل.');
+    ET.flip=setTimeout(()=>{ ES.flip=false; document.getElementById('btn-flip').classList.remove('focused'); }, 6000);
+  } else {
+    ES.flip=false; document.getElementById('btn-flip').classList.remove('focused');
+    facing=facing==='environment'?'user':'environment';
+    startStream().then(()=>speak(facing==='user'?'الكاميرا الأمامية.':'الكاميرا الخلفية.')).catch(()=>toast('لا توجد كاميرا أخرى'));
+  }
+}
+
+/* ══ STREAM ══ */
+async function startStream(){
+  if(stream)stream.getTracks().forEach(t=>t.stop());
+  stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:facing},width:{ideal:1280},height:{ideal:720}},audio:false});
+  const v=document.getElementById('vid');
+  v.srcObject=stream;
+  await new Promise(r=>{v.onloadedmetadata=()=>{v.play();r();};});
+  v.style.transform=facing==='user'?'scaleX(-1)':'';
+}
+
+async function openCamera(){
+  show('s-cam');
+  speak('تم فتح الكاميرا. زر الخروج أعلى اليسار. زر قلب الكاميرا أعلى اليمين. ثلاثة أزرار في الأسفل.');
+  try{
+    await startStream();
+    setPill('الكاميرا تعمل','g'); setStat('يعمل',true,'g');
+    setTimeout(()=>startAuto(), 1800);
+  }catch(e){
+    setPill('تعذّر الكاميرا','r');
+    speak('تعذّر فتح الكاميرا. أعطِ إذن الكاميرا من إعدادات المتصفح.', true);
+  }
+}
+
+/* ══ AUTO ANALYSIS ══ */
+function startAuto(){
+  if(analyzing)return; analyzing=true;
+  setStat('التحليل يعمل',true,'g');
+  document.getElementById('cb3i').textContent='⏸'; document.getElementById('cb3l').textContent='إيقاف';
+  doAnalyze(true);
+  autoT=setInterval(()=>{if(!busy)doAnalyze(true);},6000);
+}
+function stopAuto(){
+  analyzing=false; clearInterval(autoT); autoT=null;
+  setStat('متوقف',false,'r');
+  document.getElementById('cb3i').textContent='▶'; document.getElementById('cb3l').textContent='تشغيل';
+}
+
+/* ══ CAPTURE ══ */
+function capture(){
+  const v=document.getElementById('vid'),c=document.getElementById('cnv'),x=c.getContext('2d');
+  const w=v.videoWidth||640,h=v.videoHeight||480; c.width=w;c.height=h;
+  if(facing==='user'){x.save();x.translate(w,0);x.scale(-1,1);x.drawImage(v,0,0,w,h);x.restore();}
+  else x.drawImage(v,0,0,w,h);
+  return c.toDataURL('image/jpeg',.65).split(',')[1];
+}
+
+/* ══ ANALYZE ══ */
+async function doAnalyze(auto=false){
+  if(busy)return; busy=true;
+  document.getElementById('anwrap').classList.add('on');
+  const img=capture();
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:220,messages:[{role:'user',content:[
+        {type:'image',source:{type:'base64',media_type:'image/jpeg',data:img}},
+        {type:'text',text:`أنت مساعد بصري للمكفوفين. حلل وأجب بـ JSON فقط:
+{"d":"high"|"medium"|"low"|"none","level":"آمن"|"تنبيه"|"خطر متوسط"|"خطر مرتفع","t":"5 كلمات","v":"جملة صوتية عربية طبيعية أقل من 12 كلمة","dist":"قريب جداً"|"قريب"|"متوسط"|"بعيد"|"لا يوجد","dm":أمتار_أو_null,"dir":"أمام"|"يمين"|"يسار"|"غير محدد","c":0-100,"x":5-90,"y":5-80,"w":5-70,"h":5-70}
+JSON فقط.`}
+      ]}]})
+    });
+    const data=await res.json();
+    const raw=data?.content?.[0]?.text||'{}';
+    let r;
+    try{const m=raw.match(/\{[\s\S]*?\}/);r=JSON.parse(m?m[0]:raw);}
+    catch(_){r={d:'none',level:'آمن',t:'المسار آمن',v:'المسار آمن، يمكنك المتابعة.',dist:'لا يوجد',dm:null,dir:'غير محدد',c:90};}
+    lastR=r; applyR(r,auto);
+  }catch(e){ setPill('خطأ في الاتصال','y'); hideBbox(); if(!auto)toast('تعذّر التحليل — تحقق من الإنترنت'); }
+  document.getElementById('anwrap').classList.remove('on'); busy=false;
+}
+
+/* ══ APPLY RESULT ══ */
+function applyR(r,auto){
+  const d=r.d||'none';
+  const col=d==='high'?'#C96B6B':d==='medium'?'#E0B15C':d==='low'?'#8FA650':'#6FA67A';
+  const ptxt=d==='high'?'⚠️ '+r.t:d==='medium'?'⚡ '+r.t:d==='low'?'👁 '+r.t:'✅ المسار آمن';
+  setPill(ptxt, d==='high'?'r':d==='medium'?'y':'g');
+  // card
+  const card=document.getElementById('rcard'); card.classList.add('on'); card.style.borderColor=col;
+  document.getElementById('rcdot').style.cssText='background:'+col+';box-shadow:0 0 10px '+col;
+  document.getElementById('rclevel').style.color=col; document.getElementById('rclevel').textContent=r.level||'آمن';
+  document.getElementById('rctag').style.cssText='background:'+col+'22;color:'+col; document.getElementById('rctag').textContent=r.t||'—';
+  document.getElementById('rcmsg').textContent=r.v||'—';
+  const de=document.getElementById('rcdist');
+  de.textContent=(r.dist&&r.dist!=='لا يوجد')? '📏 '+r.dist+(r.dm?' ('+r.dm+'م)':'')+' · 📍 '+r.dir : '';
+  // bbox
+  if(d!=='none'&&r.x!=null)showBbox(r.x,r.y,r.w,r.h,r.t,r.c,col); else hideBbox();
+  // speak
+  if(d==='high'){ stop(); speak(r.v||'تحذير: '+r.t,true); if(navigator.vibrate)navigator.vibrate([200,80,200,80,400]); }
+  else if(d==='medium'){ stop(); speak(r.v||r.t,true); if(navigator.vibrate&&!auto)navigator.vibrate([300,100,300]); }
+  else if(!auto){ stop(); speak(r.v||'المسار آمن.',true); }
+  else if(d==='none'&&auto&&Math.random()<0.3){ speak('المسار آمن.',false); }
+}
+
+/* ══ BBOX ══ */
+function showBbox(bx,by,bw,bh,lbl,conf,col){
+  const vw=window.innerWidth,vh=window.innerHeight,el=document.getElementById('bbox');
+  el.style.cssText='left:'+(bx/100*vw)+'px;top:'+(by/100*vh)+'px;width:'+(bw/100*vw)+'px;height:'+(bh/100*vh)+'px;border-color:'+col+';box-shadow:0 0 24px '+col+'55;';
+  document.getElementById('bbtag').textContent=lbl||'عائق'; document.getElementById('bbtag').style.background=col;
+  document.getElementById('bbconf').textContent='ثقة: '+(conf||0)+'%';
+  el.classList.add('on');
+}
+function hideBbox(){ document.getElementById('bbox').classList.remove('on'); }
+
+/* ══ UI HELPERS ══ */
+function setPill(txt,col){
+  document.getElementById('ptxt').textContent=txt;
+  document.getElementById('pdot').className='pdot'+(col==='r'?' r':col==='y'?' y':'');
+  document.getElementById('pill').className='cam-pill'+(col==='r'?' danger':col==='y'?' warn':'');
+}
+function setStat(txt,pulse,col){
+  document.getElementById('stxt').textContent=txt;
+  const d=document.getElementById('sdot');
+  d.className='sdot'+(pulse?' pulse':'')+(col==='r'?' red':'');
+}
+function toast(msg){ const e=document.getElementById('toast'); e.textContent=msg; e.classList.add('on'); setTimeout(()=>e.classList.remove('on'),4000); }
+
+document.addEventListener('touchmove',e=>e.preventDefault(),{passive:false});
+(async()=>{try{await navigator.wakeLock.request('screen');}catch(_){}})();
+loadV();
 </script>
 </body>
 </html>
